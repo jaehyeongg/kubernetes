@@ -1,0 +1,23 @@
+# apiVersion: Kubernetes API 버전을 나타냅니다. Pod는 v1 API에 속합니다.
+apiVersion: v1
+# kind: 생성하려는 Kubernetes 오브젝트의 종류를 나타냅니다. 여기서는 Pod입니다.
+kind: Pod
+# metadata: 오브젝트에 대한 메타데이터(이름, 레이블 등)를 정의합니다.
+metadata:
+  # name: Pod의 고유한 이름입니다.
+  name: my-nginx-pod
+  # labels: 오브젝트를 식별하고 그룹화하는 데 사용되는 키-값 쌍입니다.
+  labels:
+    app: nginx
+    environment: development
+# spec: 오브젝트의 원하는 상태(desired state)를 정의합니다.
+spec:
+  # containers: Pod 내에서 실행될 컨테이너들의 목록입니다.
+  containers:
+  # - name: 컨테이너의 이름입니다. Pod 내에서 고유해야 합니다.
+  - name: nginx-container
+    # image: 컨테이너가 사용할 Docker 이미지입니다. 여기서는 NGINX 최신 버전을 사용합니다.
+    image: nginx:latest
+    # ports: 컨테이너가 노출할 포트 목록입니다. (서비스 연결 시 사용)
+    ports:
+    - containerPort: 80
