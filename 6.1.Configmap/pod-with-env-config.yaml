@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app-env-pod
+spec:
+  containers:
+  - name: my-env-container
+    image: busybox
+    command: ["sh", "-c", "env && sleep 3600"] # 환경 변수를 출력하고 Pod 유지
+    env:
+      # ConfigMap의 특정 키-값을 환경 변수로 주입합니다.
+    - name: MY_APP_COLOR # Pod 내에서 사용할 환경 변수 이름
+      valueFrom:
+        configMapKeyRef:
+          name: my-app-config # 참조할 ConfigMap의 이름
+          key: APP_COLOR     # ConfigMap 내의 키
+    - name: MY_APP_MODE
+      valueFrom:
+        configMapKeyRef:
+          name: my-app-config
+          key: APP_MODE
+      # ConfigMap 전체를 환경 변수로 주입합니다 (모든 키-값 쌍).
+    - name: DATABASE_URL # 개별 환경 변수로 지정된 경우 우선 순위가 높습니다.
+      valueFrom:
+        configMapKeyRef:
+          name: my-app-config
+          key: DATABASE_URL
+    envFrom:
+    - configMapRef:
+        name: my-app-config # ConfigMap의 모든 키-값이 환경 변수로 주입됩니다.

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+data:
+  # 키-값 쌍 형태로 설정 데이터를 정의합니다.
+  # 이 데이터는 일반 텍스트로 저장됩니다.
+  APP_COLOR: blue
+  APP_MODE: production
+  DATABASE_URL: "jdbc:mysql://mysql-service:3306/mydb"
+  # 파일 형태로 주입될 전체 파일 내용을 정의할 수도 있습니다.
+  # 파일 이름은 key가 되고, 내용은 value가 됩니다.
+  config.properties: |
+    server.port=8080
+    log.level=INFO
+    feature.enabled=true

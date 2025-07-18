@@ -1,0 +1,29 @@
+# apiVersion: Deployment는 apps/v1 API 그룹에 속합니다.
+apiVersion: apps/v1
+# kind: 생성하려는 오브젝트의 종류입니다. 여기서는 Deployment입니다.
+kind: Deployment
+# metadata: Deployment의 메타데이터(이름, 레이블 등)를 정의합니다.
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-app
+# spec: Deployment의 원하는 상태를 정의합니다.
+spec:
+  # replicas: 실행하고자 하는 Pod 인스턴스의 수입니다. 여기서는 3개입니다.
+  replicas: 3
+  # selector: Deployment가 관리할 Pod를 찾는 데 사용되는 레이블 선택자입니다.
+  # 이 선택자는 template.metadata.labels와 일치해야 합니다.
+  selector:
+    matchLabels:
+      app: nginx-app
+  # template: Deployment가 생성할 Pod의 템플릿입니다.
+  template:
+    metadata:
+      labels:
+        app: nginx-app # selector.matchLabels와 동일해야 합니다.
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.14.2 # NGINX 1.14.2 버전을 사용합니다.
+        ports:
+        - containerPort: 80
