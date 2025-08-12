@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-internal-access-pod
+spec:
+  containers:
+  - name: busybox-container
+    image: busybox
+    command: ["sh", "-c", "wget -O- http://nginx-clusterip-service && sleep 3600"] # Service 이름으로 접근
+    # 또는 IP 주소로 접근: command: ["sh", "-c", "wget -O- http://10.101.X.Y && sleep 3600"]

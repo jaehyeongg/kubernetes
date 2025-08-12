@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport-service
+spec:
+  selector:
+    app: nginx-web # Deployment의 Pod 레이블과 일치해야 합니다.
+  ports:
+    - protocol: TCP
+      port: 80 # Service의 포트 (ClusterIP 접근 시 사용)
+      targetPort: 80 # Pod 컨테이너의 포트
+      nodePort: 30080 # 노드의 포트 (30000-32767 범위에서 선택, 생략 시 자동 할당)
+  type: NodePort # Service의 타입을 NodePort로 지정합니다.

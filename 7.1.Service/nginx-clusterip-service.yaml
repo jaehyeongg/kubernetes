@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-clusterip-service
+spec:
+  # selector: 이 Service가 트래픽을 보낼 Pod를 선택하는 데 사용되는 레이블입니다.
+  # Deployment의 template.metadata.labels와 일치해야 합니다.
+  selector:
+    app: nginx-web
+  # ports: Service가 노출할 포트 정의입니다.
+  ports:
+    - protocol: TCP
+      port: 80 # Service의 포트 (클러스터 내부에서 접근할 포트)
+      targetPort: 80 # Pod 컨테이너의 포트 (Pod가 실제로 리스닝하는 포트)
+  # type: Service의 타입입니다. 기본값은 ClusterIP입니다.
+  type: ClusterIP
