@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+spec:
+  volumes:
+  - name: host-path-volume
+    hostPath:
+      # path: 노드에 존재하는 실제 경로
+      path: /var/log
+      # type: 마운트할 경로의 타입을 지정 (생략 가능)
+      type: Directory
+  containers:
+  - name: log-reader-container
+    image: busybox
+    command: ["sh", "-c", "ls -l /var/log && sleep 3600"]
+    volumeMounts:
+    - name: host-path-volume
+      mountPath: /var/log/host
